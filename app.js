@@ -14,11 +14,18 @@ import bodyParser from 'body-parser'
 import {emailApp}  from './emailApp';
 
 app.use(bodyParser())
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 console.log(files, 'THESE ARE THE FILES')
 app.post('/sendMyPicture', async function(req, res) {
 
     //const bing = JSON.stringify(req)
-   console.log(req.body, 'this is body')
+   console.log(req, 'this is body!!!!!!!!!!!!!!')
     // let bod = JSON.parse(req.body)
    // console.log(bod)
  const thisIsIt = await emailApp(req.body.email)
@@ -26,4 +33,4 @@ res.send('you sent the email!')
 
 
 })
-app.listen(3000)
+app.listen(5000)
