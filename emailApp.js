@@ -33,7 +33,7 @@ export function emailApp(theEmail) {
     const emailImage = writeToDisk(files[files.length - 1],convertPicture(files[files.length - 1]))
     
     const sendMail = async (b64Pic, emailAddy) => {
-        const email = await sgMail.setApiKey('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');
+        const email = await sgMail.setApiKey();
         const msg =  await {
           to: `${emailAddy}`,
           from: 'test@example.com',
@@ -45,10 +45,16 @@ export function emailApp(theEmail) {
         sgMail.send(msg);
         
     }
-    
+    if (theEmail) {
+        console.log('you have an email address')
     const sent = sendMail(emailImage, `${theEmail}`)
     console.log(sent, 'this is sent')
-    
+    return sent
+    }
+    if (!theEmail) {
+        console.log('no email')
+        return emailImage
+    }
         //console.log(data)
         /*
     

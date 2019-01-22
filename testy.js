@@ -59,7 +59,7 @@ const test = async () => {
   
      console.log(responsable, 'this is responsable!!!!!!')
     console.log('after calling readFile');
-    const email = await sgMail.setApiKey('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');
+    const email = await sgMail.setApiKey();
     const msg =  await {
       to: 'nschmidtinc@gmail.ca',
       from: 'test@example.com',

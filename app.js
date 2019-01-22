@@ -33,4 +33,15 @@ res.send('you sent the email!')
 
 
 })
+app.get('/', async function(req, res) {
+
+  //const bing = JSON.stringify(req)
+ console.log(req, 'this is body!!!!!!!!!!!!!!')
+  // let bod = JSON.parse(req.body)
+ // console.log(bod)
+const thisIsIt = await emailApp(null)
+res.send(thisIsIt)
+
+
+})
 app.listen(5000)
