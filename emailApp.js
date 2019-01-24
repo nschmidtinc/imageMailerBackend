@@ -4,9 +4,10 @@ var serveIndex = require('serve-index')
 var base64Img = require('base64-img');
 var fs = require('fs');
 var app = express()
-let directory = "photos"
+let directory = "../photos"
 let dirBuf = Buffer.from(directory);
 const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
 const datum = './2pac.txt'
 
 let files = fs.readdirSync(directory)
@@ -15,45 +16,79 @@ let base64 = null
 export function emailApp(theEmail) {
 
     const convertPicture = (imageString) => {
-        var data = base64Img.base64Sync(`./photos/${imageString}`);
-    return data
+        var data = base64Img.base64Sync(`../photos/${imageString}`);
+    return data.substring(22)
     }
     
-    const writeToDisk = (fileName,base64String) => {
+    const writeToDisk = (fileName,base64String, email) => {
         fs.writeFileSync(`base64${fileName}.txt`, base64String, (err) => {  
             // throws an error, you could also catch it here
             if (err) throw err;
             // success case, the file was saved
         });
+
+   const previous =  fs.readFileSync(`EmailList.csv`, 'utf8', function(err, contents) {
+         return contents
+    });
+    previous.split(',')
+const current = previous + theEmail + "\n"
+
+    const updateList = fs.writeFileSync(`EmailList.csv`, current, (err) => {  
+        // throws an error, you could also catch it here
+        if (err) throw err;
+        // success case, the file was saved
+    });
+
+    console.log(updateList)
         const responsable =  fs.readFileSync(`base64${fileName}.txt`, 'utf8', function(err, contents) {
             return contents
         });
         return responsable
     }
+    console.log(convertPicture(files[files.length - 1]), 'yooooooooyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoy')
     const emailImage = writeToDisk(files[files.length - 1],convertPicture(files[files.length - 1]))
     
     const sendMail = async (b64Pic, emailAddy) => {
-        const email = await sgMail.setApiKey();
-        const msg =  await {
+        const responsable =  await fs.readFileSync(`base64${files[files.length - 1]}.txt`, 'utf8', function(err, contents) {
+            return contents
+        });
+        console.log(files, 'hello!!!!!!!')
+        const email = await sgMail.setApiKey('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');
+        const msg = {
           to: `${emailAddy}`,
           from: 'test@example.com',
           subject: 'Sending with SendGrid is Fun',
           text: 'and easy to do anywhere, even with Node.js',
-        
-          html: `<img alt="My Image" src=${b64Pic} />`,
+         
+          attachments: [
+            {
+               content:`${responsable}`,
+               filename: 'myimage.png'
+            },
+       ],
+       
+       
+          //html: `<img alt="My Image" src=${b64Pic} />`,
         };
+        /*
+        sgMail.addFile({
+            filename: 'image.png',
+            content: new Buffer.from(b64Pic, 'base64')
+        });
+        */
+
         sgMail.send(msg);
         
     }
     if (theEmail) {
         console.log('you have an email address')
     const sent = sendMail(emailImage, `${theEmail}`)
-    console.log(sent, 'this is sent')
+  
     return sent
     }
     if (!theEmail) {
         console.log('no email')
-        return emailImage
+        return './photos/base64VirtualMirror11122.png.txt'
     }
         //console.log(data)
         /*

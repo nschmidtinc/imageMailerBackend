@@ -1,7 +1,7 @@
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(;
+sgMail.setApiKey()
 const msg = {
   to: 'test@example.com',
   from: 'test@example.com',

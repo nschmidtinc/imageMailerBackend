@@ -3,9 +3,10 @@ const app = express()
 var serveIndex = require('serve-index')
 var base64Img = require('base64-img');
 var fs = require('fs');
-let directory = "photos"
+let directory = "../photos"
 let dirBuf = Buffer.from(directory);
 const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
 const datum = './2pac.txt'
 let files = fs.readdirSync(directory)
 let base64 = null
