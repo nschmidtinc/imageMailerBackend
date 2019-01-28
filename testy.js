@@ -84,7 +84,7 @@ console.log(files[files.length - 1])
 // The serveIndex is this module serving the directory
 
 
-// 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
+// 
 
  
  /*

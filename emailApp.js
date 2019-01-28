@@ -7,7 +7,7 @@ var app = express()
 let directory = "../photos"
 let dirBuf = Buffer.from(directory);
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey('empty');
 const datum = './2pac.txt'
 
 let files = fs.readdirSync(directory)
@@ -53,7 +53,7 @@ const current = previous + theEmail + "\n"
             return contents
         });
         console.log(files, 'hello!!!!!!!')
-        const email = await sgMail.setApiKey('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');
+        const email = await sgMail.setApiKey('empty');
         const msg = {
           to: `${emailAddy}`,
           from: 'test@example.com',
@@ -68,7 +68,7 @@ const current = previous + theEmail + "\n"
        ],
        
        
-          //html: `<img alt="My Image" src=${b64Pic} />`,
+          html: `<>`,
         };
         /*
         sgMail.addFile({
