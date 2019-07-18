@@ -122,7 +122,7 @@ const current = previous + theEmail + "\n"
     
         /*
         console.log('after calling readFile');
-        const email = await sgMail.setApiKey('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');
+
         const msg =  await {
           to: 'nschmidtinc@gmail.com',
           from: 'test@example.com',
@@ -148,7 +148,7 @@ const current = previous + theEmail + "\n"
     // The serveIndex is this module serving the directory
     
     
-    // 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
+    
     
      
      /*
